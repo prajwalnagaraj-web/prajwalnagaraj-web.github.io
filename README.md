@@ -1,6 +1,6 @@
-# Personal Portfolio Website – PrajwalNagaraj-web
+# Personal Portfolio Website – prajwalnagaraj-web
 
-This is a fully responsive personal portfolio website built and maintained by [PrajwalNagaraj-web](https://github.com/PrajwalNagaraj-web).  
+This is a fully responsive personal portfolio website built and maintained by [prajwalnagaraj-web](https://github.com/prajwalnagaraj-web).  
 It highlights my projects, blogs, certifications, and accomplishments through a clean, professional layout.
 
 > ⚠️ This repository is intended strictly for personal use. Forking, redistribution, or reuse is not permitted.
