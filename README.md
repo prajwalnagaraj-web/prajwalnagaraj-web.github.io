@@ -1,4 +1,4 @@
-# Personal Portfolio Website – RefuseToLoose
+# Personal Portfolio Website – PrajwalNagaraj-web
 
 This is a fully responsive personal portfolio website built and maintained by [PrajwalNagaraj-web](https://github.com/PrajwalNagaraj-web).  
 It highlights my projects, blogs, certifications, and accomplishments through a clean, professional layout.
