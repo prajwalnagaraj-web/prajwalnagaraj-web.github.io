@@ -152,8 +152,7 @@ body { background: var(--smoky-black); }
   #REUSED STYLE
 \*-----------------------------------*/
 
-.sidebar,
-article {
+.sidebar, article {
   background: var(--eerie-black-2);
   border: 1px solid var(--jet);
   border-radius: 20px;
@@ -303,7 +302,7 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  max-height: 132px;
   overflow: hidden;
   transition: var(--transition-2);
 }
@@ -373,11 +372,36 @@ main {
   z-index: -1;
 }
 
-.info_more-btn:hover,
-.info_more-btn:focus { background: var(--bg-gradient-yellow-1); }
+/* Default button state */
+.info_more-btn {
+  background: var(--border-gradient-onyx);
+  outline: none;
+}
 
-.info_more-btn:hover::before,
-.info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
+.info_more-btn::before {
+  background: var(--bg-gradient-jet);
+}
+
+/* Yellow when sidebar is active - ALL SCREENS */
+.sidebar.active .info_more-btn {
+  background: var(--bg-gradient-yellow-1) !important;
+}
+
+.sidebar.active .info_more-btn::before {
+  background: var(--bg-gradient-yellow-2) !important;
+}
+
+/* Hover - ONLY for desktop/tablet (580px+) - MUST come after other rules */
+@media (min-width: 580px) {
+  .sidebar:not(.active) .info_more-btn:hover {
+    background: var(--bg-gradient-yellow-1) !important;
+  }
+  
+  .sidebar:not(.active) .info_more-btn:hover::before {
+    background: var(--bg-gradient-yellow-2) !important;
+  }
+}
+
 
 .info_more-btn span { display: none; }
 
@@ -1267,10 +1291,78 @@ textarea.form-input::-webkit-resizer { display: none; }
   display: none;
 }
 
+.career-path {
+  background: rgba(255, 219, 112, 0.08);
+  padding: 15px;
+  border-left: 3px solid var(--orange-yellow-crayola);
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Stats cards layout: 4 desktop, 2 mobile */
+.stats-grid {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-box {
+  background: rgba(255, 219, 112, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--orange-yellow-crayola);
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--light-gray-70);
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 or 4, never 3 */
+  }
+}
+
+.experience-text {
+  margin-bottom: 15px;
+}
 
 /*-----------------------------------*\
   #RESPONSIVE
 \*-----------------------------------*/
+
+/**
+ * responsive lesser than 380px screen
+ */
+
+/* Default - show full title, hide short */
+.title-full { 
+  display: inline; 
+}
+
+.title-short { 
+  display: none; 
+}
+
+/* Small screens - iPhone SE & Galaxy Fold */
+@media (max-width: 380px) {
+  .title-full { 
+    display: none; 
+  }
+
+  .title-short { 
+    display: inline; 
+  }
+}
 
 /**
  * responsive larger than 450px screen

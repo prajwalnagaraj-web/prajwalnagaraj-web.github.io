@@ -12,7 +12,35 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); this.blur(); });
+
+// Open sidebar by default on mobile
+window.addEventListener('DOMContentLoaded', function() {
+  handleSidebarLayout();
+});
+
+// Handle resize - recalculate layout on zoom/resize/device toggle
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(handleSidebarLayout, 150);
+});
+
+// Function to handle sidebar layout based on screen size
+function handleSidebarLayout() {
+  const width = window.innerWidth;
+  
+  if (width <= 580) {
+    // Mobile: auto-open sidebar
+    sidebar.classList.add('active');
+  } else if (width >= 1250) {
+    // Desktop: ensure sidebar is in proper state
+    sidebar.classList.remove('active');
+  } else {
+    // Tablet (580-1249): collapsed by default
+    sidebar.classList.remove('active');
+  }
+}
 
 
 
@@ -44,7 +72,7 @@ for (let i = 0; i < testimonialsItem.length; i++) {
     modalTitle.innerHTML = modalName ? modalName.innerHTML : this.querySelector("[data-testimonials-title]").innerHTML;
     modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
 
-    // ✅ NEW: Inject correct testimonial date into modal
+    // Inject correct testimonial date into modal
     const modalDate = document.querySelector("[data-modal-container] time");
     const rawDate = this.querySelector("[data-testimonials-date]").innerText;
 
