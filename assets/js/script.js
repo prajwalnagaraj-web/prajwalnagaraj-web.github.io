@@ -8,16 +8,19 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); this.blur(); });
+sidebarBtn.addEventListener("click", function () {
+  elementToggleFunc(sidebar);
+  this.blur();
+});
 
-// Open sidebar by default on mobile
-window.addEventListener('DOMContentLoaded', function() {
+// On load: do NOT auto-open on mobile, just normalize desktop/tablet
+window.addEventListener('DOMContentLoaded', function () {
   handleSidebarLayout();
 });
 
 // Handle resize - recalculate layout on zoom/resize/device toggle
 let resizeTimer;
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(handleSidebarLayout, 150);
 });
@@ -25,18 +28,19 @@ window.addEventListener('resize', function() {
 // Function to handle sidebar layout based on screen size
 function handleSidebarLayout() {
   const width = window.innerWidth;
-  
-  if (width <= 580) {
-    // Mobile: auto-open sidebar
-    sidebar.classList.add('active');
-  } else if (width >= 1250) {
-    // Desktop: ensure sidebar is in proper state
+
+  if (width >= 1250) {
+    // Desktop: ensure sidebar is collapsed (contacts always visible in large layout CSS)
     sidebar.classList.remove('active');
-  } else {
-    // Tablet (580-1249): collapsed by default
+  } else if (width > 580 && width < 1250) {
+    // Tablet: collapsed by default
     sidebar.classList.remove('active');
   }
+  // IMPORTANT:
+  // For width <= 580 (mobile), we DO NOT touch .active here.
+  // State on mobile is controlled only by the button click.
 }
+
 
 
 // testimonials variables
