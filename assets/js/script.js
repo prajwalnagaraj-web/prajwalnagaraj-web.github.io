@@ -38,14 +38,12 @@ function handleSidebarLayout() {
     if (!sidebarUserToggled) {
       sidebar.classList.add('active');
     }
-  } else if (width > 580 && width < 1250) {
-    // Tablet: collapsed and reset
+    } else {
+    // Tablet/Desktop (581px+): always remove .active 
     sidebar.classList.remove('active');
     sidebarUserToggled = false;
-  }
-  // ≥1250: do nothing; desktop behavior comes from CSS only
+    }
 }
-
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
