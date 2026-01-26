@@ -1,27 +1,31 @@
 'use strict';
 
 
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
 
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
+// Track whether user manually changed sidebar state
+let sidebarUserToggled = false;
+
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); this.blur(); });
+sidebarBtn.addEventListener("click", function () {
+  elementToggleFunc(sidebar);
+  sidebarUserToggled = true;      // user has taken control
+  this.blur();
+});
 
 // Open sidebar by default on mobile
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener("DOMContentLoaded", function () {
   handleSidebarLayout();
 });
 
 // Handle resize - recalculate layout on zoom/resize/device toggle
 let resizeTimer;
-window.addEventListener('resize', function() {
+window.addEventListener("resize", function () {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(handleSidebarLayout, 150);
 });
@@ -29,19 +33,22 @@ window.addEventListener('resize', function() {
 // Function to handle sidebar layout based on screen size
 function handleSidebarLayout() {
   const width = window.innerWidth;
-  
+
   if (width <= 580) {
-    // Mobile: auto-open sidebar
-    sidebar.classList.add('active');
+    // Mobile: only auto-open if user has NOT manually toggled
+    if (!sidebarUserToggled) {
+      sidebar.classList.add("active");
+    }
   } else if (width >= 1250) {
-    // Desktop: ensure sidebar is in proper state
-    sidebar.classList.remove('active');
+    // Desktop: sidebar should be collapsed by default
+    sidebar.classList.remove("active");
+    sidebarUserToggled = false;   // reset when going to desktop layout
   } else {
     // Tablet (580-1249): collapsed by default
-    sidebar.classList.remove('active');
+    sidebar.classList.remove("active");
+    sidebarUserToggled = false;   // reset when leaving mobile layout
   }
 }
-
 
 
 // testimonials variables
