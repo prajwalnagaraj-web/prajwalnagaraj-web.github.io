@@ -372,7 +372,7 @@ main {
   z-index: -1;
 }
 
-/* Desktop: keep normal hover everywhere */
+/* Desktop/Tablet (581px+): normal hover everywhere */
 @media (min-width: 581px) {
   .info_more-btn:hover,
   .info_more-btn:focus {
@@ -385,7 +385,7 @@ main {
   }
 }
 
-/* Mobile: yellow ONLY when sidebar active */
+/* Mobile (≤580px): yellow ONLY when sidebar active, NO hover */
 @media (max-width: 580px) {
   .sidebar.active .info_more-btn {
     background: var(--bg-gradient-yellow-1);
@@ -393,6 +393,17 @@ main {
 
   .sidebar.active .info_more-btn::before {
     background: var(--bg-gradient-yellow-2);
+  }
+
+  /* Disable hover on mobile to prevent zoom issues */
+  .info_more-btn:hover,
+  .info_more-btn:focus {
+    background: var(--border-gradient-onyx);
+  }
+
+  .info_more-btn:hover::before,
+  .info_more-btn:focus::before {
+    background: var(--bg-gradient-jet);
   }
 }
 
