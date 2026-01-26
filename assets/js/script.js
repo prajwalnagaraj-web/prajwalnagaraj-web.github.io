@@ -7,40 +7,49 @@ const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
-// sidebar toggle functionality for mobile
+// Track if user has manually toggled on mobile
+let sidebarUserToggled = false;
+
+// 1) Button toggle
 sidebarBtn.addEventListener("click", function () {
   elementToggleFunc(sidebar);
+  sidebarUserToggled = true;   // from now on, respect user's choice on mobile
   this.blur();
 });
 
-// On load: do NOT auto-open on mobile, just normalize desktop/tablet
+// 2) Initial layout
 window.addEventListener('DOMContentLoaded', function () {
   handleSidebarLayout();
 });
 
-// Handle resize - recalculate layout on zoom/resize/device toggle
+// 3) Resize
 let resizeTimer;
 window.addEventListener('resize', function () {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(handleSidebarLayout, 150);
 });
 
-// Function to handle sidebar layout based on screen size
+// 4) Layout logic
 function handleSidebarLayout() {
   const width = window.innerWidth;
 
-  if (width >= 1250) {
-    // Desktop: ensure sidebar is collapsed (contacts always visible in large layout CSS)
+  if (width <= 580) {
+    // Mobile
+    if (!sidebarUserToggled) {
+      // First load / before user taps: keep it open
+      sidebar.classList.add('active');
+    }
+    // After user taps, do nothing here – keep current state
+  } else if (width >= 1250) {
+    // Desktop: normalize and reset
     sidebar.classList.remove('active');
-  } else if (width > 580 && width < 1250) {
-    // Tablet: collapsed by default
+    sidebarUserToggled = false;
+  } else {
+    // Tablet: collapsed and reset
     sidebar.classList.remove('active');
+    sidebarUserToggled = false;
   }
-  // IMPORTANT:
-  // For width <= 580 (mobile), we DO NOT touch .active here.
-  // State on mobile is controlled only by the button click.
 }
-
 
 
 // testimonials variables
