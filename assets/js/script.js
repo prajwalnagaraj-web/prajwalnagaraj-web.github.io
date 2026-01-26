@@ -1,6 +1,5 @@
 'use strict';
 
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
@@ -9,39 +8,35 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () {
-  elementToggleFunc(sidebar);
-  this.blur();
+sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); this.blur(); });
+
+// Open sidebar by default on mobile
+window.addEventListener('DOMContentLoaded', function() {
+  handleSidebarLayout();
 });
 
-// ---- INITIAL LAYOUT ONLY (no auto-open on resize) ----
-window.addEventListener('DOMContentLoaded', function () {
-  const width = window.innerWidth;
+// Handle resize - recalculate layout on zoom/resize/device toggle
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(handleSidebarLayout, 150);
+});
 
+// Function to handle sidebar layout based on screen size
+function handleSidebarLayout() {
+  const width = window.innerWidth;
+  
   if (width <= 580) {
-    // Mobile: choose your default – open OR closed
-    // If you want closed by default, comment the next line:
-    sidebar.classList.add('active');   // or remove this line to keep it collapsed
+    // Mobile: auto-open sidebar
+    sidebar.classList.add('active');
+  } else if (width >= 1250) {
+    // Desktop: ensure sidebar is in proper state
+    sidebar.classList.remove('active');
   } else {
+    // Tablet (580-1249): collapsed by default
     sidebar.classList.remove('active');
   }
-});
-
-// ---- RESIZE: only handle desktop/tablet layout, never force mobile open ----
-let resizeTimer;
-window.addEventListener('resize', function () {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(function () {
-    const width = window.innerWidth;
-
-    if (width >= 1250) {
-      // Desktop: collapse (you can keep this, it runs on real resizes)
-      sidebar.classList.remove('active');
-    }
-    // IMPORTANT: no code here that adds .active for width <= 580
-    // Mobile state is controlled ONLY by user tap + initial load
-  }, 150);
-});
+}
 
 
 // testimonials variables

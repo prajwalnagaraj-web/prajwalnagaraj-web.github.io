@@ -374,20 +374,10 @@ main {
 
 .info_more-btn:hover,
 .info_more-btn:focus { background: var(--bg-gradient-yellow-1);
-  cursor: pointer !important;
 }
 
 .info_more-btn:hover::before,
 .info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
-
-/* Keep yellow when sidebar is expanded */
-.sidebar.active .infomore-btn {
-  background: var(--bg-gradient-yellow-1) !important;
-}
-
-.sidebar.active .infomore-btn::before {
-  background: var(--bg-gradient-yellow-2) !important;
-}
 
 .info_more-btn span { display: none; }
 
