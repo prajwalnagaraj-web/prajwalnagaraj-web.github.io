@@ -315,6 +315,16 @@ main {
   padding-bottom: 20px;      
 }
 
+/* Prevent scrollbar flash during zoom */
+.sidebar.active {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.sidebar.active::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 .sidebar-info {
   position: relative;
   display: flex;
