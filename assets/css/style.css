@@ -372,12 +372,25 @@ main {
   z-index: -1;
 }
 
-.info_more-btn:hover,
-.info_more-btn:focus { background: var(--bg-gradient-yellow-1);
+/* 1) Normal hover behavior (when sidebar is NOT active) */
+.sidebar:not(.active) .info_more-btn:hover,
+.sidebar:not(.active) .info_more-btn:focus {
+  background: var(--bg-gradient-yellow-1);
 }
 
-.info_more-btn:hover::before,
-.info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
+.sidebar:not(.active) .info_more-btn:hover::before,
+.sidebar:not(.active) .info_more-btn:focus::before {
+  background: var(--bg-gradient-yellow-2);
+}
+
+/* 2) When sidebar IS active: keep it yellow always */
+.sidebar.active .info_more-btn {
+  background: var(--bg-gradient-yellow-1);
+}
+
+.sidebar.active .info_more-btn::before {
+  background: var(--bg-gradient-yellow-2);
+}
 
 .info_more-btn span { display: none; }
 
