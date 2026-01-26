@@ -34,21 +34,16 @@ function handleSidebarLayout() {
   const width = window.innerWidth;
 
   if (width <= 580) {
-    // Mobile
+    // Mobile: default open until user touches it
     if (!sidebarUserToggled) {
-      // First load / before user taps: keep it open
       sidebar.classList.add('active');
     }
-    // After user taps, do nothing here – keep current state
-  } else if (width >= 1250) {
-    // Desktop: normalize and reset
-    sidebar.classList.remove('active');
-    sidebarUserToggled = false;
-  } else {
+  } else if (width > 580 && width < 1250) {
     // Tablet: collapsed and reset
     sidebar.classList.remove('active');
     sidebarUserToggled = false;
   }
+  // ≥1250: do nothing; desktop behavior comes from CSS only
 }
 
 
